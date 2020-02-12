@@ -633,21 +633,21 @@ def linux_release_build_with_debug_assertions(layout_2020):
         index_key_suffix = ""
         treeherder_prefix = ""
     return (
-        linux_build_task(name_prefix + "Release build, with debug assertions")
-        .with_treeherder("Linux x64", treeherder_prefix + "Release+A")
+        linux_build_task(name_prefix + "Debug build")
+        .with_treeherder("Linux x64", treeherder_prefix + "Debug")
         .with_script("""
             time ./mach rustc -V
             time ./mach fetch
-            ./mach build --release --with-debug-assertions %s -p servo
+            ./mach build --dev %s -p servo
             ./etc/ci/lockfile_changed.sh
             tar -czf /target.tar.gz \
-                target/release/servo \
-                target/release/build/osmesa-src-*/output \
-                target/release/build/osmesa-src-*/out/lib/gallium
+                target/debug/servo \
+                target/debug/build/osmesa-src-*/output \
+                target/debug/build/osmesa-src-*/out/lib/gallium
             sccache --show-stats
         """ % build_args)
         .with_artifacts("/target.tar.gz")
-        .find_or_create("build.linux_x64%s_release_w_assertions.%s" % (
+        .find_or_create("build.linux_x64%s_debug.%s" % (
             index_key_suffix,
             CONFIG.task_id(),
         ))
