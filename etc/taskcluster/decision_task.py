@@ -431,28 +431,28 @@ def appx_artifact(debug):
 
 def windows_arm64():
     return (
-        windows_build_task("UWP dev build", arch="arm64", package=False)
-        .with_treeherder("Windows arm64", "UWP-Dev")
+        windows_build_task("UWP release build", arch="arm64", package=False)
+        .with_treeherder("Windows arm64", "UWP-Release")
         .with_script(
-            "python mach build --dev --target=aarch64-uwp-windows-msvc",
-            "python mach package --dev --target aarch64-uwp-windows-msvc --uwp=arm64",
+            "python mach build --release --target=aarch64-uwp-windows-msvc",
+            "python mach package --release --target aarch64-uwp-windows-msvc --uwp=arm64",
         )
-        .with_artifacts(appx_artifact(debug=True))
-        .find_or_create("build.windows_uwp_arm64_dev." + CONFIG.task_id())
+        .with_artifacts(appx_artifact(debug=False))
+        .find_or_create("build.windows_uwp_arm64_release." + CONFIG.task_id())
     )
 
 
 def windows_uwp_x64():
     return (
-        windows_build_task("UWP dev build", package=False)
-        .with_treeherder("Windows x64", "UWP-Dev")
+        windows_build_task("UWP release build", package=False)
+        .with_treeherder("Windows x64", "UWP-Release")
         .with_script(
-            "python mach build --dev --target=x86_64-uwp-windows-msvc",
-            "python mach package --dev --target=x86_64-uwp-windows-msvc --uwp=x64",
+            "python mach build --release --target=x86_64-uwp-windows-msvc",
+            "python mach package --release --target=x86_64-uwp-windows-msvc --uwp=x64",
             "python mach test-tidy --force-cpp --no-wpt",
         )
-        .with_artifacts(appx_artifact(debug=True))
-        .find_or_create("build.windows_uwp_x64_dev." + CONFIG.task_id())
+        .with_artifacts(appx_artifact(debug=False))
+        .find_or_create("build.windows_uwp_x64_release." + CONFIG.task_id())
     )
 
 
