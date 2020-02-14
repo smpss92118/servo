@@ -59,6 +59,7 @@ def tasks(task_for):
             "try": all_tests,
             "try-taskcluster": [
                 # Add functions here as needed, in your push to that branch
+                windows_uwp_x64
             ],
             "master": [
                 upload_docs,
@@ -1065,7 +1066,7 @@ CONFIG.index_prefix = "project.servo"
 CONFIG.default_provisioner_id = "proj-servo"
 CONFIG.docker_image_build_worker_type = "docker"
 
-CONFIG.windows_worker_type = "win2016"
+CONFIG.windows_worker_type = "tmp-20200214150029"
 CONFIG.macos_worker_type = "macos"
 
 if __name__ == "__main__":  # pragma: no cover
