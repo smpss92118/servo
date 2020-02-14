@@ -767,7 +767,8 @@ def build_uwp(platforms, dev, msbuild_dir, sign_package):
         )
         build_file.close()
         # Generate an appxbundle.
-        subprocess.check_call([msbuild, "/m", build_file.name, "/p:AppxPackageSigningEnabled=" + str(sign_package)])
+        sign_package_value = "true" if sign_package else "false"
+        subprocess.check_call([msbuild, "/m", build_file.name, "/p:AppxPackageSigningEnabled=" + sign_package_value])
         os.unlink(build_file.name)
 
     print("Creating ZIP")
