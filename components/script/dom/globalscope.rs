@@ -292,6 +292,9 @@ pub struct ManagedMessagePort {
     /// The DOM port.
     dom_port: Dom<MessagePort>,
     /// The logic and data backing the DOM port.
+    /// The option is needed to take out the port-impl
+    /// as part of its transferring steps,
+    /// without having to worry about rooting the dom-port.
     port_impl: Option<MessagePortImpl>,
     /// We keep ports pending when they are first transfer-received,
     /// and only add them, and ask the constellation to complete the transfer,
